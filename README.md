@@ -17,8 +17,31 @@ Não aceita nenhum caractere que não seja um dígito numérico.
 * **errorStyle**: configura a classe CSS para ser usada quando tiver um erro no campo. (padrão: null)
 * **cpfCallback**: especifica a função para validar o CPF.
                    Por padrão, o plugin já verifica se o campo tem 11 ou 15 caracteres (CPF ou CNPJ, respectivamente).
-                   A função deve retornar verdadeiro para passar. (padrão: function () { return true; })
+                   A função deve retornar verdadeiro para passar.
+                   A funcão recebe o próprio elemento DOM onde é aplicado a máscara como parâmetro no formato jQuery.
+                   (padrão: function () { return true; })
 * **cnpjCallback**: especifica a função para validar o CNPJ (ver **cpfCallback**).
+
+### Exemplo de Uso
+
+    $('#ID').cadMask(); // default
+
+    $('#ID').cadMask({
+        showError: true,
+        errorStyle: 'minha_classe'
+        cpfCallback: function (element) {
+            var value = false;
+            if (element.val() == '111.111.111-11'
+                value = true;
+            return value;
+        },
+        cnpjCallback: function (element) {
+            var value = false;
+            if (element.val() == '111.111.111/1111-11'
+                value = true;
+            return value;
+        }
+    });
 
 -----------------------------------------
 
@@ -37,5 +60,7 @@ Accpets only numerical digit character.
 * **errorStyle**: sets the CSS class to be used when error occurs in the field. (default: null)
 * **cpfCallback**: specifies CPF validation function.
                    The plugin already verifies if the field has 11 or 15 characters (CPF or CNPJ, respectively).
-                   The function must return true to pass validation. (default: function () { return true; })
+                   The function must return true to pass validation.
+                   The plugin passes the DOM element who receives the mask as a parameter in jQuery format.
+                   (default: function () { return true; })
 * **cnpjCallback**: specifies CNPJ validation function (see **cpfCallback**).

@@ -2,7 +2,7 @@
     
     String.prototype.relativeLength = function (relativeChar) {
         return this.match(new RegExp(relativeChar, 'g')).length;
-    }
+    };
     
     $.fn.cadMask = function(options) {
         var settings = $.extend({

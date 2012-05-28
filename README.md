@@ -29,15 +29,15 @@ Não aceita nenhum caractere que não seja um dígito numérico.
 
 Este código acima, é o padrão. Abaixo, mostra como aparece o campo quando ganha foco.
 
-![cadMask com foco](mask.png)
+![cadMask com foco](https://github.com/mlalbuquerque/cadMask/raw/master/mask.png)
 
 Enquanto tiver com menos de 12 caracteres, sempre mostra a máscara do CPF.
 
-![cadMask com máscara de CPF](mask-filled.png)
+![cadMask com máscara de CPF](https://github.com/mlalbuquerque/cadMask/raw/master/mask-filled.png)
 
 Quando tiver 12 ou mais caracteres, mostra a máscara do CNPJ.
 
-![cadMask com máscara de CNPJ](mask-filled-cnpj.png)
+![cadMask com máscara de CNPJ](https://github.com/mlalbuquerque/cadMask/raw/master/mask-filled-cnpj.png)
 
 Abaixo, mostra como funciona a configuração de exibição do erro. Para ligar,
 basta usar `showError: true`.
@@ -54,7 +54,7 @@ basta usar `showError: true`.
 
 Já existe um padrão de estilo de erro, mostrado abaixo:
 
-![cadMask com erro](mask-filled-error.png)
+![cadMask com erro](https://github.com/mlalbuquerque/cadMask/raw/master/mask-filled-error.png)
 
 Para mudar o estilo, basta usar `errorStyle`, como abaixo:
 
@@ -78,7 +78,7 @@ Para mudar o estilo, basta usar `errorStyle`, como abaixo:
 
 Vai aparecer assim:
 
-![cadMask com erro e estilo](mask-filled-error-styled.png)
+![cadMask com erro e estilo](https://github.com/mlalbuquerque/cadMask/raw/master/mask-filled-error-styled.png)
 
 Por último, o plugin só valida o tamanho do CPF e CNPJ.
 Para usar funções mais avançadas para validar o CPF e CNPJ de modo correto,

@@ -3,8 +3,7 @@
 [Português brasileiro](https://github.com/mlalbuquerque/cadMask#pt_BR) |
 [English](https://github.com/mlalbuquerque/cadMask#en)
 
-<a name="pt_BR">(**pt_BR**)</a>
-### Plugin de CPF/CNPJ
+### Plugin de CPF/CNPJ <a name="pt_BR">(**pt_BR**)</a>
 
 Este plugin ativa a máscara de um input to tipo text que aceita CPF e CNPJ ao mesmo tempo.
 Exibe a máscara pertinente no momento (caso tenha menos que 12 caracteres, exibe máscara de CPF).
@@ -124,8 +123,7 @@ MAS, agora, mostra o erro se não é o CPF e/ou CNPJ correto (111.111.111-11 or 
 
 -----------------------------------------
 
-<a name="en">(**en**)</a>
-### The CPF/CNPJ Plugin
+### The CPF/CNPJ Plugin <a name="en">(**en**)</a>
 
 This plugin enables an input textfield mask that accepts CPF and CNPJ at the same time.
 Shows the relevant mask at the moment (less than 12 characters, shows CPF).

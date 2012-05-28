@@ -6,25 +6,25 @@
     
     $.fn.cadMask = function(options) {
         var settings = $.extend({
-            cpfMask: "___.___.___-__",
-            cnpjMask: "___.___.___/____-__",
-            hasRawField: false,
-            rawName: 'raw',
-            rawId: 'raw_id',
-            showError: false,
-            errorStyle: null,
-            cpfCallback: function () {
+            cpfMask: "___.___.___-__",       // Mask for CPF
+            cnpjMask: "___.___.___/____-__", // Mask for CNPJ
+            hasRawField: false,               // Set if has raw field to send
+            rawName: 'raw',                   // If has raw field, what's his name
+            rawId: 'raw_id',                  // If has raw field, what's his id
+            showError: false,                 // Set if notify error
+            errorStyle: null,                 // Set the error style
+            cpfCallback: function () {        // Callbak to check for CPF format
                 return true;
             },
-            cnpjCallback: function () {
+            cnpjCallback: function () {       // Callbak to check for CNPJ format
                 return true;
             }
         }, options);
         
-        var values = new Array(),
-            myDefaultStyle = "background-color: #FFC9C9; border: 1px solid red; color: red;",
+        // Default error style and currentDigits global variables
+        var myDefaultStyle = "background-color: #FFC9C9; border: 1px solid red; color: red;",
             currentDigit;
-            
+
         return this.each(function () {
             var $this = $(this);
             
@@ -34,23 +34,25 @@
                                                .attr('id', settings.rawId);
                 $this.after(raw_element);
             }
-            
+
+            $this.data('value', new Array()); // Placeholder for value
+
+            // Check if input has already a value
             if ($this.val().length > 0) {
-                values = $this.val().split("");
-                if ($this.val().length <= settings.cpfMask.relativeLength("_"))
-                    $this.val(_prepareValue($this.val(), settings.cpfMask));
-                else
-                    $this.val(_prepareValue($this.val(), settings.cnpjMask));
+                var value = $this.val().split("");
+                for (var i=0; i<value.length; i++)
+                    _pushChar(value[i], $this);
             }
             
+            // Event handlers (focus in, focus out and keydown)
             $this.focusin(function () {
-                if (values.length == 0) {
+                if ($(this).data('value').length == 0) {
                     $(this).val(settings.cpfMask);
                 } else if (settings.showError) {
                     _unsetErrorStyle($(this), settings.errorStyle);
                 }
             }).focusout(function () {
-                if (values.length == 0) {
+                if ($(this).data('value').length == 0) {
                     $(this).val("");
                 } else if (settings.showError) {
                     if ($(this).val().match(/_/) || _testCallbacks($(this)))
@@ -58,31 +60,25 @@
                 }
             }).keydown(function (event) {
                 var digit = event.which;
-                if (digit != 116)
-                    event.preventDefault();
+                event.preventDefault();
                 event.stopPropagation();
-                if (event.which == 8) values.pop();
-                if ((digit >= 48 && digit <= 57) || (digit >= 96 && digit <= 105)) {
-                    currentDigit = digit;
-                } else {
-                    currentDigit = '';
-                }
-                _pushChar(currentDigit, $(this));
+                if (event.which == 8) $(this).data('value').pop();
+                currentDigit = ((digit >= 48 && digit <= 57) || (digit >= 96 && digit <= 105)) ? digit : '';
+                var currentChar = _getDigit(currentDigit);
+                _pushChar(currentChar, $(this));
             });
         });
         
-        function _pushChar (current_digit, element) {
-            var digit = _getDigit(current_digit);
-            if (/[0-9]/g.test(digit)) {
-                if (values.length < _biggestLength())
-                    values.push(digit);
-                var value = values.join(""), text = "";
-                text = (values.length <= settings.cpfMask.relativeLength("_")) ? 
-                    _prepareValue(value, settings.cpfMask) :
-                    _prepareValue(value, settings.cnpjMask);
-                element.val(text);
+        function _pushChar (digit, element) {
+            if (/[0-9]/g.test(digit) && element.data('value').length < _biggestLength())
+                element.data('value').push(digit);
+            var value = element.data('value').join(""), text = "";
+            text = (element.data('value').length <= settings.cpfMask.relativeLength("_")) ? 
+                _prepareValue(value, settings.cpfMask) :
+                _prepareValue(value, settings.cnpjMask);
+            element.val(text);
+            if (settings.hasRawField)
                 $("#"+settings.rawId).val(value);
-            }
         }
         
         function _getDigit(code) {
@@ -98,7 +94,6 @@
                     text += mask.charAt(j++) + value.charAt(i);
             }
             text += mask.substr(j);
-            
             return text;
         }
         
@@ -121,7 +116,7 @@
         }
         
         function _testCallbacks(element) {
-            return (values.length < 12) ? 
+            return (element.data('value').length < 12) ? 
                 !settings.cpfCallback(element) :
                 !settings.cnpjCallback(element);
         }

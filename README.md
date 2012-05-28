@@ -24,24 +24,87 @@ Não aceita nenhum caractere que não seja um dígito numérico.
 
 ### Exemplo de Uso
 
-    $('#ID').cadMask(); // default
+    // uso simples
+    $('#ID').cadMask();
 
-    $('#ID').cadMask({
-        showError: true,
-        errorStyle: 'minha_classe'
-        cpfCallback: function (element) {
-            var value = false;
-            if (element.val() == '111.111.111-11'
-                value = true;
-            return value;
-        },
-        cnpjCallback: function (element) {
-            var value = false;
-            if (element.val() == '111.111.111/1111-11'
-                value = true;
-            return value;
-        }
-    });
+Este código acima, é o padrão. Abaixo, mostra como aparece o campo quando ganha foco.
+
+![cadMask com foco](mask.png)
+
+Enquanto tiver com menos de 12 caracteres, sempre mostra a máscara do CPF.
+
+![cadMask com máscara de CPF](mask-filled.png)
+
+Quando tiver 12 ou mais caracteres, mostra a máscara do CNPJ.
+
+![cadMask com máscara de CNPJ](mask-filled-cnpj.png)
+
+Abaixo, mostra como funciona a configuração de exibição do erro. Para ligar,
+basta usar `showError: true`.
+
+    <html>
+        ...
+        <script>
+            // uso mais complexo
+            $('#ID').cadMask({
+                showError: true
+            });
+        </script>
+    </html>
+
+Já existe um padrão de estilo de erro, mostrado abaixo:
+
+![cadMask com erro](mask-filled-error.png)
+
+Para mudar o estilo, basta usar `errorStyle`, como abaixo:
+
+    <html>
+        ...
+        <style>
+            .minha_classe {
+                background-color: black;
+                border: 0;
+                color: yellow;
+            }
+        </style>
+        <script>
+            // uso mais complexo
+            $('#ID').cadMask({
+                showError: true,
+                errorStyle: 'minha_classe'
+            });
+        </script>
+    </html>
+
+Vai aparecer assim:
+
+![cadMask com erro e estilo](mask-filled-error-styled.png)
+
+Por último, o plugin só valida o tamanho do CPF e CNPJ.
+Para usar funções mais avançadas para validar o CPF e CNPJ de modo correto,
+basta usar `cpfCallback` e `cnpjCallback`, como mostrado abaixo:
+
+    <html>
+        ...
+        <script>
+            // uso mais complexo
+            $('#ID').cadMask({
+                showError: true,
+                cpfCallback: function (elemento) {
+                    var value = false;
+                    if (elemento.val() == '111.111.111-11'
+                        value = true;
+                    return value;
+                },
+                cnpjCallback: function (elemento) {
+                    var value = false;
+                    if (elemento.val() == '111.111.111/1111-11'
+                        value = true;
+                    return value;
+                }
+            });
+        </script>
+    </html>
 
 -----------------------------------------
 
@@ -64,3 +127,26 @@ Accpets only numerical digit character.
                    The plugin passes the DOM element who receives the mask as a parameter in jQuery format.
                    (default: function () { return true; })
 * **cnpjCallback**: specifies CNPJ validation function (see **cpfCallback**).
+
+### Usage Example
+
+    // simple usage
+    $('#ID').cadMask();
+
+    // more complex usage
+    $('#ID').cadMask({
+        showError: true,
+        errorStyle: 'my_class'
+        cpfCallback: function (element) {
+            var value = false;
+            if (element.val() == '111.111.111-11'
+                value = true;
+            return value;
+        },
+        cnpjCallback: function (element) {
+            var value = false;
+            if (element.val() == '111.111.111/1111-11'
+                value = true;
+            return value;
+        }
+    });

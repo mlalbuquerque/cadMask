@@ -1,6 +1,7 @@
 # cadMask
 
-[Português brasileiro](/#pt_BR/) | [English](/#en/)
+[Português brasileiro](https://github.com/mlalbuquerque/cadMask#pt_BR) |
+[English](https://github.com/mlalbuquerque/cadMask#en)
 
 ### The CPF/CNPJ Plugin
 

@@ -23,7 +23,9 @@
         
         // Default error style and currentDigits global variables
         var myDefaultStyle = "background-color: #FFC9C9; border: 1px solid red; color: red;",
-            currentDigit;
+            currentDigit,
+            cpfMaskChar = settings.cpfMask.charAt(0),
+            cnpjMaskChar = settings.cnpjMask.charAt(0);
 
         return this.each(function () {
             var $this = $(this);
@@ -58,7 +60,7 @@
                     if ($(this).val().match(/_/) || _testCallbacks($(this)))
                         _setErrorStyle($(this), settings.errorStyle);
                 }
-            }).keydown(function (event) {
+            }).keypress(function (event) {
                 var digit = event.which;
                 event.preventDefault();
                 event.stopPropagation();
@@ -70,15 +72,22 @@
         });
         
         function _pushChar (digit, element) {
-            if (/[0-9]/g.test(digit) && element.data('value').length < _biggestLength())
+            console.log('Digito: ' + digit);
+            console.log('É número? ' + digit.match(/[0-9]/g));
+            console.log('Tamanho do vetor: ' + element.data('value').length);
+            console.log('Tamanho da maior mascara: ' + _biggestLength());
+            if (digit.match(/[0-9]/g) && element.data('value').length < _biggestLength()) {
+                console.log('Entrou no push');
                 element.data('value').push(digit);
+            }
             var value = element.data('value').join(""), text = "";
-            text = (element.data('value').length <= settings.cpfMask.relativeLength("_")) ? 
+            text = (element.data('value').length <= settings.cpfMask.relativeLength(cpfMaskChar)) ? 
                 _prepareValue(value, settings.cpfMask) :
                 _prepareValue(value, settings.cnpjMask);
             element.val(text);
             if (settings.hasRawField)
                 $("#"+settings.rawId).val(value);
+            console.log(element.data('value'));
         }
         
         function _getDigit(code) {
@@ -88,7 +97,7 @@
         function _prepareValue(value, mask) {
             var i = 0, j = 0, text = "";
             for (; i < value.length; i++, j++) {
-                if (mask.charAt(j) == "_")
+                if (mask.charAt(j) == mask.charAt(0))
                     text += value.charAt(i);
                 else
                     text += mask.charAt(j++) + value.charAt(i);
@@ -105,7 +114,7 @@
         }
         
         function _biggestLength() {
-            return Math.max(settings.cpfMask.relativeLength('_'), settings.cnpjMask.relativeLength('_'));
+            return Math.max(settings.cpfMask.relativeLength(cpfMaskChar), settings.cnpjMask.relativeLength(cnpjMaskChar));
         }
         
         function _unsetErrorStyle(element, styleClass) {

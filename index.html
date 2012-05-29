@@ -4,7 +4,7 @@
         <title>Mascara CPF/CNPJ</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <script src="/jquery-1.7.2.min.js"></script>
-        <script src="jquery.cadmask.min.js"></script>
+        <script src="jquery.cadmask.js"></script>
         <script>
             $(function () {
                 $('#id').cadMask({
@@ -14,8 +14,9 @@
         </script>
     </head>
     <body>
+        <h1>M&aacute;scara CPF/CNPJ</h1>
         <form action="test.php" method="POST">
-            <input type="text" size="40" name="valor" id="id" value="12309845677" />
+            <input type="text" size="40" name="valor" id="id"/>
             <input type="submit" value="Enviar" />
         </form>
     </body>

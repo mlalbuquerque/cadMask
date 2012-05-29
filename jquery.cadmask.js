@@ -72,14 +72,8 @@
         });
         
         function _pushChar (digit, element) {
-            console.log('Digito: ' + digit);
-            console.log('É número? ' + digit.match(/[0-9]/g));
-            console.log('Tamanho do vetor: ' + element.data('value').length);
-            console.log('Tamanho da maior mascara: ' + _biggestLength());
-            if (digit.match(/[0-9]/g) && element.data('value').length < _biggestLength()) {
-                console.log('Entrou no push');
+            if (digit.match(/[0-9]/g) && element.data('value').length < _biggestLength())
                 element.data('value').push(digit);
-            }
             var value = element.data('value').join(""), text = "";
             text = (element.data('value').length <= settings.cpfMask.relativeLength(cpfMaskChar)) ? 
                 _prepareValue(value, settings.cpfMask) :
@@ -87,7 +81,6 @@
             element.val(text);
             if (settings.hasRawField)
                 $("#"+settings.rawId).val(value);
-            console.log(element.data('value'));
         }
         
         function _getDigit(code) {

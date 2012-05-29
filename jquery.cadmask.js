@@ -7,7 +7,7 @@
     $.fn.cadMask = function(options) {
         var settings = $.extend({
             cpfMask: "___.___.___-__",       // Mask for CPF
-            cnpjMask: "___.___.___/____-__", // Mask for CNPJ
+            cnpjMask: "__.___.___/____-__",  // Mask for CNPJ
             hasRawField: false,               // Set if has raw field to send
             rawName: 'raw',                   // If has raw field, what's his name
             rawId: 'raw_id',                  // If has raw field, what's his id

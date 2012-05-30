@@ -57,7 +57,9 @@
                 if ($(this).data('value').length == 0) {
                     $(this).val("");
                 } else if (settings.showError) {
-                    if ($(this).val().match(/_/) || _testCallbacks($(this)))
+                    var maskChar = ($(this).data('value').length > 11) ? 
+                        cnpjMaskChar : cpfMaskChar;
+                    if ($(this).val().match(new RegExp(maskChar)) || _testCallbacks($(this)))
                         _setErrorStyle($(this), settings.errorStyle);
                 }
             }).keypress(function (event) {
